@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Herbergh — Social Direction Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2A241E;
+    --ink-soft:#5A5147;
+    --cream:#F6F1E8;
+    --cream-deep:#EFE7D8;
+    --taupe:#B9A489;
+    --taupe-dark:#8C7659;
+    --gold:#A9825A;
+    --line:#DDD2BC;
+    --white:#FFFDF9;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+
+  /* ---------- NAV ---------- */
+  .site{max-width:1040px;margin:0 auto;padding:0 32px;}
+  header{border-bottom:1px solid var(--line); background:var(--cream); position:sticky; top:0; z-index:50;}
+  .navwrap{display:flex; align-items:center; justify-content:space-between; padding:22px 0;}
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand-mark-img{height:34px; width:auto; display:block;}
+  .brand-sub{font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-soft);}
+  nav{display:flex; gap:4px;}
+  .navbtn{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    background:none;
+    border:none;
+    padding:10px 14px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    border-radius:3px;
+    transition:color .2s ease, background .2s ease;
+  }
+  .navbtn:hover{color:var(--ink); background:var(--cream-deep);}
+  .navbtn.active{color:var(--white); background:var(--ink);}
+  .navbtn:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  main{padding:56px 0 90px;}
+  .page{display:none; animation:fade .45s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){ .page{animation:none;} }
+
+  .eyebrow{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:14px;}
+  h1.title{font-size:42px; font-weight:500; line-height:1.15; margin:0 0 18px; max-width:640px;}
+  p.lede{font-size:17px; line-height:1.65; color:var(--ink-soft); max-width:560px; margin:0 0 8px;}
+
+  /* ---------- OVERVIEW ---------- */
+  .hero-rule{width:64px; height:2px; background:var(--gold); margin:28px 0 34px;}
+  .stat-row{display:flex; gap:0; margin-top:48px; border-top:1px solid var(--line);}
+  .stat{flex:1; padding:24px 24px 0 0; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:'Fraunces',serif; font-size:26px; margin-bottom:6px;}
+  .stat-label{font-size:13px; color:var(--ink-soft); line-height:1.5;}
+
+  /* ---------- DIRECTIONS ---------- */
+  .dir-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:36px;}
+  .dir-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:32px 28px;
+    display:flex; flex-direction:column;
+  }
+  .dir-ref{font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--taupe-dark); margin-bottom:6px;}
+  .dir-card h3{font-size:23px; font-weight:500; margin:0 0 14px;}
+  .dir-card p{font-size:14.5px; line-height:1.6; color:var(--ink-soft); margin:0 0 18px;}
+  .dir-sub{font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink); margin:14px 0 8px; font-weight:600;}
+  .dir-card ul{margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); line-height:1.7;}
+  .dir-card.b{background:var(--ink); color:var(--cream); border-color:var(--ink);}
+  .dir-card.b .dir-ref{color:var(--taupe);}
+  .dir-card.b p, .dir-card.b ul{color:#CDC4B4;}
+  .dir-card.b .dir-sub{color:var(--cream);}
+
+  /* ---------- GOALS / DIAL ---------- */
+  .q-block{margin-bottom:36px; padding-bottom:32px; border-bottom:1px solid var(--line);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-num{font-size:11px; letter-spacing:1px; color:var(--gold); font-weight:600; margin-bottom:8px;}
+  .q-text{font-size:19px; font-weight:500; margin-bottom:16px; max-width:520px;}
+  .opt-row{display:flex; gap:12px; flex-wrap:wrap;}
+  .opt{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:12px 18px;
+    border-radius:5px;
+    font-size:13.5px;
+    cursor:pointer;
+    color:var(--ink-soft);
+    transition:all .2s ease;
+  }
+  .opt:hover{border-color:var(--taupe-dark); color:var(--ink);}
+  .opt.selected{background:var(--ink); border-color:var(--ink); color:var(--white);}
+  .opt:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  .dial-wrap{
+    position:sticky; bottom:24px;
+    margin-top:44px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:26px 30px;
+    box-shadow:0 8px 28px rgba(42,36,30,0.10);
+  }
+  .dial-label-row{display:flex; justify-content:space-between; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px;}
+  .dial-track{position:relative; height:6px; background:var(--cream-deep); border-radius:3px; overflow:visible;}
+  .dial-fill{position:absolute; left:0; top:0; height:100%; background:linear-gradient(90deg,var(--taupe-dark),var(--gold)); border-radius:3px; transition:width .5s cubic-bezier(.4,0,.2,1);}
+  .dial-marker{position:absolute; top:50%; width:16px; height:16px; background:var(--ink); border:3px solid var(--white); border-radius:50%; transform:translate(-50%,-50%); transition:left .5s cubic-bezier(.4,0,.2,1); box-shadow:0 2px 6px rgba(0,0,0,0.25);}
+  .dial-readout{margin-top:16px; font-size:14px; color:var(--ink-soft); line-height:1.6;}
+  .dial-readout strong{color:var(--ink); font-family:'Fraunces',serif; font-weight:600;}
+
+  /* ---------- EXPECTATIONS ---------- */
+  .exp-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:38px; border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .exp-col{padding:28px 26px;}
+  .exp-col.left{background:var(--white); border-right:1px solid var(--line);}
+  .exp-col.right{background:var(--cream-deep);}
+  .exp-h{font-size:11px; letter-spacing:1px; text-transform:uppercase; font-weight:600; margin-bottom:12px; color:var(--taupe-dark);}
+  .exp-col p{font-size:14.5px; line-height:1.65; color:var(--ink-soft); margin:0;}
+  .callout{margin-top:32px; border-left:3px solid var(--gold); padding:6px 0 6px 20px;}
+  .callout p{font-size:15px; line-height:1.7; color:var(--ink); max-width:640px; margin:0;}
+
+  /* ---------- NEXT STEPS ---------- */
+  .steps{margin-top:36px; display:flex; flex-direction:column; gap:0;}
+  .step{display:flex; gap:22px; padding:22px 0; border-bottom:1px solid var(--line);}
+  .step:first-child{padding-top:0;}
+  .step-mark{font-family:'Fraunces',serif; font-size:15px; color:var(--gold); min-width:28px; padding-top:2px;}
+  .step-body h4{margin:0 0 6px; font-size:16px; font-weight:600;}
+  .step-body p{margin:0; font-size:14px; color:var(--ink-soft); line-height:1.6;}
+  .cta-box{margin-top:44px; background:var(--ink); color:var(--cream); border-radius:6px; padding:34px 32px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;}
+  .cta-box h3{margin:0 0 6px; font-family:'Fraunces',serif; font-size:22px; font-weight:500;}
+  .cta-box p{margin:0; font-size:14px; color:#CDC4B4;}
+
+  footer{border-top:1px solid var(--line); padding:26px 0; text-align:center; font-size:12px; color:var(--ink-soft); letter-spacing:0.3px;}
+
+  @media (max-width:760px){
+    .navwrap{flex-direction:column; align-items:flex-start; gap:12px;}
+    nav{flex-wrap:wrap;}
+    .dir-grid, .exp-grid{grid-template-columns:1fr;}
+    .exp-col.left{border-right:none; border-bottom:1px solid var(--line);}
+    h1.title{font-size:30px;}
+    .stat-row{flex-direction:column;}
+    .stat{border-right:none; border-bottom:1px solid var(--line); padding:20px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site navwrap">
+    <div class="brand">
+      <img class="brand-mark-img" src="data:image/png;base64,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" alt="Hotel Herbergh mark">
+      <span class="brand-sub">Social Direction — Proposal</span>
+    </div>
+    <nav id="nav">
+      <button class="navbtn active" data-page="overview">Overview</button>
+      <button class="navbtn" data-page="directions">Directions</button>
+      <button class="navbtn" data-page="goals">Your Goals</button>
+      <button class="navbtn" data-page="expectations">Expectations</button>
+      <button class="navbtn" data-page="next">Next Steps</button>
+    </nav>
+  </div>
+</header>
+
+<main class="site">
+
+  <!-- OVERVIEW -->
+  <section class="page active" id="overview">
+    <div class="eyebrow">Prepared for Hotel Herbergh</div>
+    <h1 class="title">A social presence built around what you're actually trying to achieve.</h1>
+    <p class="lede">Before proposing a content calendar, we want to agree on the goal. "Doing something with social media" can mean a growth engine, an ad infrastructure, or a brand statement — and each of those points to a different account, a different workload, and a different definition of success.</p>
+    <p class="lede">This page walks through two reference directions, a short set of questions to place you on the spectrum between them, and what to expect from each — including the new restaurant's role in the story.</p>
+    <div class="hero-rule"></div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Reference directions, drawn from accounts already doing this well.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Questions that determine which direction actually fits Herbergh.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Account. Hotel and restaurant will need to share a single voice.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECTIONS -->
+  <section class="page" id="directions">
+    <div class="eyebrow">Two starting points</div>
+    <h1 class="title" style="font-size:32px;">Where should @hotelherbergh sit?</h1>
+    <p class="lede">Neither direction is more "correct" — they optimize for different outcomes. Picking one early keeps the content plan honest.</p>
+
+    <div class="dir-grid">
+      <div class="dir-card">
+        <div class="dir-ref">Reference — De Laatste Kruimel</div>
+        <h3>Community &amp; Growth</h3>
+        <p>Frequent, low-friction posting. Staff on camera, trends joined quickly, day-to-day moments over polish. The account grows because it feels alive and local.</p>
+        <div class="dir-sub">Strengths</div>
+        <ul>
+          <li>Best path to real follower growth</li>
+          <li>Cheap, constant content supply from daily operations</li>
+          <li>Builds a recognisable, likeable team-first brand</li>
+        </ul>
+        <div class="dir-sub">Costs you carry</div>
+        <ul>
+          <li>Needs a steady content pipeline — someone filming often</li>
+          <li>Staff must be willing (and available) to appear</li>
+          <li>Voice needs to stay consistent across many small posts</li>
+        </ul>
+      </div>
+
+      <div class="dir-card b">
+        <div class="dir-ref">Reference — Aman</div>
+        <h3>Editorial &amp; Exclusive</h3>
+        <p>Sparse, deliberate, high-production posts. The account reads as a brand statement, not a feed to check daily. Prestige over frequency.</p>
+        <div class="dir-sub">Strengths</div>
+        <ul>
+          <li>Reinforces a premium, boutique positioning</li>
+          <li>Low ongoing content demand — a handful of shoots per quarter</li>
+          <li>Works well purely as ad infrastructure, even with few posts</li>
+        </ul>
+        <div class="dir-sub">Costs you carry</div>
+        <ul>
+          <li>Slower, smaller follower growth — that's not the goal here</li>
+          <li>Less algorithmic discovery, since it isn't built for that</li>
+          <li>Every post needs to earn its place — no filler</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOALS -->
+  <section class="page" id="goals">
+    <div class="eyebrow">Three questions</div>
+    <h1 class="title" style="font-size:32px;">Tell us what you're optimizing for.</h1>
+    <p class="lede">Answer as a team — the marker below moves as you go, and lands on the direction your answers actually point to.</p>
+
+    <div style="margin-top:40px;">
+      <div class="q-block">
+        <div class="q-num">01</div>
+        <div class="q-text">What matters more — a big following, or a working channel for targeted ads?</div>
+        <div class="opt-row" data-group="goal">
+          <button class="opt" data-value="0">Growing a real following</button>
+          <button class="opt" data-value="70">Mainly ad infrastructure</button>
+          <button class="opt" data-value="35">Genuinely both, equally</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">02</div>
+        <div class="q-text">How much content can the hotel realistically produce — daily filming, or a few planned shoots?</div>
+        <div class="opt-row" data-group="content">
+          <button class="opt" data-value="0">Frequent, informal, ongoing</button>
+          <button class="opt" data-value="70">A few polished shoots a quarter</button>
+          <button class="opt" data-value="30">Somewhere in between</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">03</div>
+        <div class="q-text">Are staff comfortable being featured, and how central is the new restaurant to the story?</div>
+        <div class="opt-row" data-group="staff">
+          <button class="opt" data-value="0">Yes — staff and the restaurant launch, front and centre</button>
+          <button class="opt" data-value="70">No — keep it about the space and the brand, not people</button>
+          <button class="opt" data-value="35">Restaurant yes, staff sparingly</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dial-wrap">
+      <div class="dial-label-row">
+        <span>Community &amp; Growth</span>
+        <span>Editorial &amp; Exclusive</span>
+      </div>
+      <div class="dial-track">
+        <div class="dial-fill" id="dialFill" style="width:50%;"></div>
+        <div class="dial-marker" id="dialMarker" style="left:50%;"></div>
+      </div>
+      <div class="dial-readout" id="dialReadout">Answer the questions above — this updates live and gives us a starting brief to build the real proposal from.</div>
+    </div>
+  </section>
+
+  <!-- EXPECTATIONS -->
+  <section class="page" id="expectations">
+    <div class="eyebrow">Managing expectations</div>
+    <h1 class="title" style="font-size:32px;">What each direction realistically gets you.</h1>
+    <p class="lede">This is the part most proposals skip. We'd rather set it now than explain it in month three.</p>
+
+    <div class="exp-grid">
+      <div class="exp-col left">
+        <div class="exp-h">If you choose Community &amp; Growth</div>
+        <p>Expect follower growth to become visible within a few months, but only if posting stays consistent — this direction fails quietly if the content pipeline dries up. It also demands ongoing staff time, so it's a resourcing decision as much as a marketing one.</p>
+      </div>
+      <div class="exp-col right">
+        <div class="exp-h">If you choose Editorial &amp; Exclusive</div>
+        <p>Follower growth will be slow and that's not a failure — it's the trade-off for a low-content, high-control account. The channel still works perfectly well for targeted ads: ad reach runs on the pixel and audience data, not on organic follower count.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>In short: a small, quiet, well-produced account can still be a fully functional ad engine. Follower count and ad performance are two different goals that happen to live on the same platform — choosing editorial doesn't mean choosing "less marketing," it means choosing a different metric to succeed by.</p>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section class="page" id="next">
+    <div class="eyebrow">What we need from you</div>
+    <h1 class="title" style="font-size:32px;">To turn this into a real plan.</h1>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-mark">01</div>
+        <div class="step-body">
+          <h4>A goal, in writing</h4>
+          <p>Growth, ad infrastructure, or both — whatever the dial above landed on, confirmed by whoever owns this decision.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-mark">02</div>
+        <div class="step-body">
+          <h4>Staff access, if relevant</h4>
+          <p>If leaning community-driven: which team members are willing to appear, and how often we can realistically film.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-mark">03</div>
+        <div class="step-body">
+          <h4>Restaurant launch assets</h4>
+          <p>Menu, interior shots, opening date — so we know whether it leads the account or supports the hotel's existing story.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-mark">04</div>
+        <div class="step-body">
+          <h4>Approval speed</h4>
+          <p>Who signs off on posts, and how fast — this alone often decides whether frequent posting is actually realistic.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div>
+        <h3>Ready to sit down and lock in a direction?</h3>
+        <p>Bring the dial reading from the Goals page — that's the starting brief for the full proposal.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Prepared for Hotel Herbergh · Schiphol Airport, Amsterdam</footer>
+
+<script>
+  const navButtons = document.querySelectorAll('.navbtn');
+  const pages = document.querySelectorAll('.page');
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navButtons.forEach(b=>b.classList.remove('active'));
+      pages.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.page).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  const answers = { goal:35, content:30, staff:35 };
+  const fill = document.getElementById('dialFill');
+  const marker = document.getElementById('dialMarker');
+  const readout = document.getElementById('dialReadout');
+
+  function updateDial(){
+    const avg = (answers.goal + answers.content + answers.staff) / 3;
+    fill.style.width = avg + '%';
+    marker.style.left = avg + '%';
+
+    let text;
+    if(avg < 25){
+      text = '<strong>Leaning Community &amp; Growth.</strong> Your answers point toward frequent posting, staff involvement, and follower growth as the real goal — closer to the De Laatste Kruimel model.';
+    } else if(avg < 55){
+      text = '<strong>Somewhere in the middle.</strong> A hybrid pace: regular but not daily content, staff featured occasionally, growth and ad performance both matter. Worth discussing which one takes priority in practice.';
+    } else {
+      text = '<strong>Leaning Editorial &amp; Exclusive.</strong> Your answers point toward a smaller, high-production account focused on brand and ad infrastructure — closer to the Aman model.';
+    }
+    readout.innerHTML = text;
+  }
+
+  document.querySelectorAll('.opt-row').forEach(row=>{
+    const group = row.dataset.group;
+    row.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        row.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[group] = parseInt(opt.dataset.value, 10);
+        updateDial();
+      });
+    });
+  });
+
+  updateDial();
+</script>
+
+</body>
+</html>
